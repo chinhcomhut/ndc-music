@@ -100,9 +100,9 @@ public class CommentRestAPI {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/comment/product/{id}")
+    @GetMapping("/comment/song/{id}")
     public ResponseEntity<?> getAllCommentByProductId(@PathVariable Long id) {
-        List<Comment> comments = (List<Comment>) commentService.findCommentsByProductId(id);
+        List<Comment> comments = (List<Comment>) commentService.findCommentsBySongId(id);
 
         if (comments.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

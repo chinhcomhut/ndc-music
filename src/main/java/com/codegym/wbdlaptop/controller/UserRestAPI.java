@@ -1,6 +1,6 @@
 package com.codegym.wbdlaptop.controller;
 
-import com.codegym.wbdlaptop.message.request.SearchUserByName;
+//import com.codegym.wbdlaptop.message.request.SearchUserByName;
 import com.codegym.wbdlaptop.model.User;
 import com.codegym.wbdlaptop.service.ISongService;
 import com.codegym.wbdlaptop.service.IUserService;
@@ -56,23 +56,23 @@ public class UserRestAPI {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping("/user/search-by-name")
-    public ResponseEntity<?> getListUserByName(@RequestBody SearchUserByName userForm) {
-        if(userForm.getName() == "" || userForm.getName() == null) {
-            List<User> users = (List<User>) userService.findAll();
-
-            if(users.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            } else {
-                return new ResponseEntity<>(users,HttpStatus.OK);
-            }
-        }
-
-        List<User> users = (List<User>) userService.findUsersByNameContaining(userForm.getName());
-        if (users.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity<>(users, HttpStatus.OK);
-        }
-    }
+//    @PostMapping("/user/search-by-name")
+//    public ResponseEntity<?> getListUserByName(@RequestBody SearchUserByName userForm) {
+//        if(userForm.getName() == "" || userForm.getName() == null) {
+//            List<User> users = (List<User>) userService.findAll();
+//
+//            if(users.isEmpty()) {
+//                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//            } else {
+//                return new ResponseEntity<>(users,HttpStatus.OK);
+//            }
+//        }
+//
+//        List<User> users = (List<User>) userService.findUsersByNameContaining(userForm.getName());
+//        if (users.isEmpty()) {
+//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//        } else {
+//            return new ResponseEntity<>(users, HttpStatus.OK);
+//        }
+//    }
 }
