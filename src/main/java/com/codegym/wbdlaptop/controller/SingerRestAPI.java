@@ -1,7 +1,7 @@
 package com.codegym.wbdlaptop.controller;
 
 
-import com.codegym.wbdlaptop.message.request.SearchSingerByNameSinger;
+//import com.codegym.wbdlaptop.message.request.SearchSingerByNameSinger;
 
 import com.codegym.wbdlaptop.model.Singer;
 import com.codegym.wbdlaptop.model.Song;
@@ -90,23 +90,23 @@ public class SingerRestAPI {
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
-    @PostMapping("/singer/search-by-name")
-    public ResponseEntity<?> searchLineByNameSinger(@RequestBody SearchSingerByNameSinger searchSinger) {
-        if(searchSinger.getName() == "" || searchSinger.getName() == null ) {
-            List<Singer> singers = (List<Singer>) singerService.findAll();
-            if(singers.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            } else {
-                return new ResponseEntity<>(singers,HttpStatus.OK);
-            }
-        }
-
-        List<Singer> singers = (List<Singer>) singerService.findSingersByNameSingerContaining(searchSinger.getName());
-        if(singers.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity<>(singers,HttpStatus.OK);
-        }
-    }
+//
+//    @PostMapping("/singer/search-by-name")
+//    public ResponseEntity<?> searchLineByNameSinger(@RequestBody SearchSingerByNameSinger searchSinger) {
+//        if(searchSinger.getName() == "" || searchSinger.getName() == null ) {
+//            List<Singer> singers = (List<Singer>) singerService.findAll();
+//            if(singers.isEmpty()) {
+//                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//            } else {
+//                return new ResponseEntity<>(singers,HttpStatus.OK);
+//            }
+//        }
+//
+//        List<Singer> singers = (List<Singer>) singerService.findSingersByNameSingerContaining(searchSinger.getName());
+//        if(singers.isEmpty()) {
+//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//        } else {
+//            return new ResponseEntity<>(singers,HttpStatus.OK);
+//        }
+//    }
 }

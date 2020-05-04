@@ -33,7 +33,9 @@ public class CommentServiceImpl implements ICommentService {
     }
 
     @Override
-    public Iterable<Comment> findCommentsByProductId(Long product_id) {
-        return repository.findCommentsByProductId(product_id);
+    public Iterable<Comment> findCommentsBySongId(Long song_id) {
+        return repository.findCommentsBySongId(song_id);
     }
+
+
 }

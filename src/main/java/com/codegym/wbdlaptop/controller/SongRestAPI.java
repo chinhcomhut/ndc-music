@@ -1,7 +1,7 @@
 package com.codegym.wbdlaptop.controller;
 
-import com.codegym.wbdlaptop.message.request.SearchSongBySingerAndName;
-import com.codegym.wbdlaptop.message.request.SearchSongByNameForm;
+//import com.codegym.wbdlaptop.message.request.SearchSongBySingerAndName;
+//import com.codegym.wbdlaptop.message.request.SearchSongByNameForm;
 import com.codegym.wbdlaptop.model.Song;
 import com.codegym.wbdlaptop.service.ISongService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,71 +102,71 @@ public class SongRestAPI {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping("/song/search-by-name")
-    public ResponseEntity<?> searchSongByName(@RequestBody SearchSongByNameForm searchSong) {
-        if (searchSong.getName() == "" || searchSong.getName() == null ) {
-            List<Song> songs = (List<Song>) songService.findAll();
-
-            if(songs.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            } else {
-                return new ResponseEntity<>(songs,HttpStatus.OK);
-            }
-        }
-
-        List<Song> songs = (List<Song>) songService.findSongsByNameSongContaining(searchSong.getName());
-        if(songs.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity<>(songs,HttpStatus.OK);
-        }
-    }
-
-    @GetMapping("/song/search-by-singerId/{id}")
-    public ResponseEntity<?> searchBySingerId(@PathVariable Long id) {
-        List<Song> songs = (List<Song>) songService.findSongsBySingerId(id);
-
-        if (songs.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-
-        return new ResponseEntity<>(songs,HttpStatus.OK);
-    }
-
-    @PostMapping("/song/search-by-singer-and-name")
-    public ResponseEntity<?> searchSongBySingerAndName(@RequestBody SearchSongBySingerAndName searchForm) {
-        if (searchForm.getName() == null && searchForm.getLineId() == null) {
-            List<Song> songs = (List<Song>) songService.findAll();
-            if(songs.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-            return new ResponseEntity<>(songs,HttpStatus.OK);
-        }
-
-        if (searchForm.getName() == null && searchForm.getLineId() != null) {
-            List<Song> songs = (List<Song>) songService.findSongsBySingerId(searchForm.getLineId());
-            if(songs.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-            return new ResponseEntity<>(songs,HttpStatus.OK);
-        }
-
-        if (searchForm.getName() != null && searchForm.getLineId() == null) {
-            List<Song> songs = (List<Song>) songService.findSongsByNameSongContaining(searchForm.getName());
-            if(songs.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-            return new ResponseEntity<>(songs,HttpStatus.OK);
-        }
-
-        if (searchForm.getLineId() != null && searchForm.getName() != null) {
-            List<Song> songs = (List<Song>) songService.findSongsBySingerIdAndNameSongContaining(searchForm.getLineId(),searchForm.getName());
-            if(songs.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-            return new ResponseEntity<>(songs,HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+//    @PostMapping("/song/search-by-name")
+//    public ResponseEntity<?> searchSongByName(@RequestBody SearchSongByNameForm searchSong) {
+//        if (searchSong.getName() == "" || searchSong.getName() == null ) {
+//            List<Song> songs = (List<Song>) songService.findAll();
+//
+//            if(songs.isEmpty()) {
+//                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//            } else {
+//                return new ResponseEntity<>(songs,HttpStatus.OK);
+//            }
+//        }
+//
+//        List<Song> songs = (List<Song>) songService.findSongsByNameSongContaining(searchSong.getName());
+//        if(songs.isEmpty()) {
+//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//        } else {
+//            return new ResponseEntity<>(songs,HttpStatus.OK);
+//        }
+//    }
+//
+//    @GetMapping("/song/search-by-singerId/{id}")
+//    public ResponseEntity<?> searchBySingerId(@PathVariable Long id) {
+//        List<Song> songs = (List<Song>) songService.findSongsBySingerId(id);
+//
+//        if (songs.isEmpty()) {
+//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//        }
+//
+//        return new ResponseEntity<>(songs,HttpStatus.OK);
+//    }
+//
+//    @PostMapping("/song/search-by-singer-and-name")
+//    public ResponseEntity<?> searchSongBySingerAndName(@RequestBody SearchSongBySingerAndName searchForm) {
+//        if (searchForm.getName() == null && searchForm.getLineId() == null) {
+//            List<Song> songs = (List<Song>) songService.findAll();
+//            if(songs.isEmpty()) {
+//                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//            }
+//            return new ResponseEntity<>(songs,HttpStatus.OK);
+//        }
+//
+//        if (searchForm.getName() == null && searchForm.getLineId() != null) {
+//            List<Song> songs = (List<Song>) songService.findSongsBySingerId(searchForm.getLineId());
+//            if(songs.isEmpty()) {
+//                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//            }
+//            return new ResponseEntity<>(songs,HttpStatus.OK);
+//        }
+//
+//        if (searchForm.getName() != null && searchForm.getLineId() == null) {
+//            List<Song> songs = (List<Song>) songService.findSongsByNameSongContaining(searchForm.getName());
+//            if(songs.isEmpty()) {
+//                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//            }
+//            return new ResponseEntity<>(songs,HttpStatus.OK);
+//        }
+//
+//        if (searchForm.getLineId() != null && searchForm.getName() != null) {
+//            List<Song> songs = (List<Song>) songService.findSongsBySingerIdAndNameSongContaining(searchForm.getLineId(),searchForm.getName());
+//            if(songs.isEmpty()) {
+//                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//            }
+//            return new ResponseEntity<>(songs,HttpStatus.OK);
+//        } else {
+//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
 }
