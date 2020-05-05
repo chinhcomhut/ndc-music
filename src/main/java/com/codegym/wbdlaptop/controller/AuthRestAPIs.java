@@ -8,14 +8,21 @@ import com.codegym.wbdlaptop.message.response.JwtResponse;
 import com.codegym.wbdlaptop.message.response.ResponseMessage;
 import com.codegym.wbdlaptop.model.Role;
 import com.codegym.wbdlaptop.model.RoleName;
+import com.codegym.wbdlaptop.model.Song;
 import com.codegym.wbdlaptop.model.User;
+import com.codegym.wbdlaptop.repository.IUserRepository;
+import com.codegym.wbdlaptop.security.jwt.JwtAuthTokenFilter;
 import com.codegym.wbdlaptop.security.jwt.JwtProvider;
+import com.codegym.wbdlaptop.security.service.UserDetailsServiceImpl;
 import com.codegym.wbdlaptop.security.service.UserPrinciple;
 import com.codegym.wbdlaptop.service.IRoleService;
+import com.codegym.wbdlaptop.service.ISingerService;
+import com.codegym.wbdlaptop.service.ISongService;
 import com.codegym.wbdlaptop.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,6 +32,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -37,16 +45,34 @@ public class AuthRestAPIs {
 
     @Autowired
     IUserService userService;
-
+    @Autowired
+    IUserRepository userRepository;
+    @Autowired
+    JwtAuthTokenFilter jwtAuthTokenFilter;
     @Autowired
     IRoleService roleService;
-
+    @Autowired
+    ISongService songService;
+    @Autowired
+    ISingerService singerService;
     @Autowired
     PasswordEncoder passwordEncoder;
-
+    @Autowired
+    UserDetailsServiceImpl userDetailsService;
     @Autowired
     JwtProvider jwtProvider;
-
+    private UserPrinciple getCurrentUser() {
+        return (UserPrinciple) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
+    @GetMapping("/listSongByUser")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    public ResponseEntity<ResponseMessage> getListSongUserById() {
+        List<Song> songs = (List<Song>) this.songService.findSongsBySingerId(getCurrentUser().getId());
+        if (songs == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
 
