@@ -3,6 +3,7 @@ package com.codegym.wbdlaptop.controller;
 //import com.codegym.wbdlaptop.message.request.SearchSongBySingerAndName;
 //import com.codegym.wbdlaptop.message.request.SearchSongByNameForm;
 import com.codegym.wbdlaptop.model.Song;
+import com.codegym.wbdlaptop.security.service.UserPrinciple;
 import com.codegym.wbdlaptop.service.ISongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,6 +13,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -25,7 +27,9 @@ public class SongRestAPI {
 
     @Autowired
     private ISongService songService;
-
+//    private UserPrinciple getCurrentUser(){
+//        return (UserPrinciple) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//    }
     @GetMapping("/song/pagination")
     public ResponseEntity<?> getListSongAndPagination(@PageableDefault(value = 2 , sort = "date" ,direction = Sort.Direction.ASC) Pageable pageable) {
 //        DESC = Old , ASC = new

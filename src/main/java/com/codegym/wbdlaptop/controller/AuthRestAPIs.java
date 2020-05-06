@@ -67,7 +67,7 @@ public class AuthRestAPIs {
     @GetMapping("/listSongByUser")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<ResponseMessage> getListSongUserById() {
-        List<Song> songs = (List<Song>) this.songService.findSongsBySingerId(getCurrentUser().getId());
+        List<Song> songs = (List<Song>) this.songService.findSongsByUserId(getCurrentUser().getId());
         if (songs == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
