@@ -4,6 +4,7 @@ import com.codegym.wbdlaptop.model.Song;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ISongService {
@@ -16,7 +17,7 @@ public interface ISongService {
     Song save(Song song);
 
     void delete(Long id);
-
+    List<Song> findAllByUserId (Long user_id);
     Iterable<Song> findSongsByUserId(Long user_id);
     Iterable<Song> findSongsByNameSongContaining(String song_name);
     Iterable<Song> findSongsBySingerId(Long singer_id);

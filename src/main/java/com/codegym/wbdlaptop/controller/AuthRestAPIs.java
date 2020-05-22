@@ -65,9 +65,9 @@ public class AuthRestAPIs {
         return (UserPrinciple) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
     @GetMapping("/listSongByUser")
-//    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<ResponseMessage> getListSongUserById() {
-        List<Song> songs = (List<Song>) this.songService.findSongsByUserId(getCurrentUser().getId());
+        List<Song> songs = (List<Song>) this.songService.findAllByUserId(getCurrentUser().getId());
         if (songs == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

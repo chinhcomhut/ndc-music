@@ -12,6 +12,7 @@ public interface ISongRepository extends PagingAndSortingRepository<Song, Long> 
 //    Iterable<Song> findProductsByNameContaining(String name);
 //    Iterable<Song> findProductsByLineId(Long line_id);
 //    Iterable<Song> findProductsByLineIdAndNameContaining(Long line_id, String name);
+    List<Song> findAllByUserId (Long user_id);
     Iterable<Song> findSongsByUserId(Long user_id);
     Iterable<Song> findSongsByNameSongContaining(String song_name);
     Iterable<Song> findSongsBySingerId(Long singer_id);

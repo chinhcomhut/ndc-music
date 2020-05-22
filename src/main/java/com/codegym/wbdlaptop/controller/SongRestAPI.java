@@ -27,9 +27,9 @@ public class SongRestAPI {
 
     @Autowired
     private ISongService songService;
-//    private UserPrinciple getCurrentUser(){
-//        return (UserPrinciple) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//    }
+    private UserPrinciple getCurrentUser(){
+        return (UserPrinciple) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
     @GetMapping("/song/pagination")
     public ResponseEntity<?> getListSongAndPagination(@PageableDefault(value = 2 , sort = "date" ,direction = Sort.Direction.ASC) Pageable pageable) {
 //        DESC = Old , ASC = new
@@ -43,7 +43,7 @@ public class SongRestAPI {
     }
 
     @GetMapping("/song")
-//    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> getListProduct() {
         List<Song> songs = (List<Song>) songService.findAll();
         if(songs.isEmpty()) {
@@ -54,7 +54,7 @@ public class SongRestAPI {
     }
 
     @GetMapping("/song/{id}")
-//    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> getSong(@PathVariable Long id) {
         Optional<Song> song = songService.findById(id);
 
@@ -66,7 +66,7 @@ public class SongRestAPI {
     }
 
     @PostMapping("/song")
-//    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> createProduct(@Valid @RequestBody Song song) {
 
 
@@ -76,7 +76,7 @@ public class SongRestAPI {
     }
 
     @PutMapping("/song/{id}")
-//    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> updateProduct(@Valid @RequestBody Song song, @PathVariable Long id) {
         Optional<Song> song1 = songService.findById(id);
 
@@ -99,7 +99,7 @@ public class SongRestAPI {
     }
 
     @DeleteMapping("/song/{id}")
-//    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> deleteSong(@PathVariable Long id) {
         Optional<Song> product = songService.findById(id);
 
