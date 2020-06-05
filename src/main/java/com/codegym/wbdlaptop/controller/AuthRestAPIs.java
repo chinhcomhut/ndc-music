@@ -156,7 +156,7 @@ public class AuthRestAPIs {
     }
 
 
-    @PutMapping("/update-password/{id}")
+    @PutMapping("/changeProfile/{id}")
     public ResponseEntity<?>updatePassword(@Valid @RequestBody PasswordForm passForm, @PathVariable Long id) {
         Optional<User> user = userService.findById(id);
 
