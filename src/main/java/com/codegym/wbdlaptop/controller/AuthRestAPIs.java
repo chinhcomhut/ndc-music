@@ -27,9 +27,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.List;
@@ -157,24 +159,28 @@ public class AuthRestAPIs {
 
 
     @PutMapping("/changeProfile")
-    public ResponseEntity<?>updatePassword(@Valid @RequestBody PasswordForm passForm, @PathVariable Long id) {
-        Optional<User> user = userService.findById(id);
-
-        if (user == null ){
-            return new ResponseEntity<>(new ResponseMessage("Not found user"),HttpStatus.NOT_FOUND);
-        }
-
+    public ResponseEntity<?> changePassword(HttpServletRequest request, @Valid @RequestBody PasswordForm changePasswordForm) {
+        String jwt = jwtAuthTokenFilter.getJwt(request);
+        String username = jwtProvider.getUserNameFromJwtToken(jwt);
+        User user;
         try {
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(passForm.getUsername(), passForm.getCurrentPassword()));
-
-            user.get().setPassword(passwordEncoder.encode(passForm.getNewPassword()));
-
-            userService.save(user.get());
-
-            return new ResponseEntity<>(new ResponseMessage("Change password successful"),HttpStatus.OK);
-        } catch (Exception e) {
-            throw new RuntimeException("Fail!");
+            user = userService
+                    .findByUsername(username)
+                    .orElseThrow(
+                            () -> new UsernameNotFoundException("User Not Found with -> username:" + username));
+        } catch (UsernameNotFoundException exception) {
+            return new ResponseEntity<>(new ResponseMessage(exception.getMessage()), HttpStatus.NOT_FOUND);
         }
+
+        boolean matches = passwordEncoder.matches(changePasswordForm.getCurrentPassword(), user.getPassword());
+        if (changePasswordForm.getNewPassword() != null) {
+            if (matches) {
+                user.setPassword(passwordEncoder.encode(changePasswordForm.getNewPassword()));
+                userService.save(user);
+            } else {
+                new ResponseEntity(new ResponseMessage("Change Failed"), HttpStatus.BAD_REQUEST);
+            }
+        }
+        return new ResponseEntity(new ResponseMessage("Change Succeed"), HttpStatus.OK);
     }
 }
