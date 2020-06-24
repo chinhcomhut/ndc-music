@@ -1,12 +1,12 @@
 package com.codegym.wbdlaptop.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "singer")
+@Table()
 public class Singer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +18,7 @@ public class Singer {
     @Lob
     private String information;
 
-    @JsonIgnore
+
     @OneToMany(targetEntity = Song.class, mappedBy = "singer", cascade = CascadeType.ALL)
     private List<Song> songs;
 
