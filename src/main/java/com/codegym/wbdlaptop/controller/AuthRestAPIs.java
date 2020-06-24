@@ -158,8 +158,7 @@ public class AuthRestAPIs {
     }
 
 
-    @PutMapping("/changepassword")
-
+    @PutMapping("/changePassword")
     public ResponseEntity<?> changePassword(HttpServletRequest request, @Valid @RequestBody ChangePasswordForm changePasswordForm) {
         String jwt = jwtAuthTokenFilter.getJwt(request);
         String username = jwtProvider.getUserNameFromJwtToken(jwt);
