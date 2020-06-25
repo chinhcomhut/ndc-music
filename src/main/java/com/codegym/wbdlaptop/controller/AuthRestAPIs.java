@@ -148,7 +148,7 @@ public class AuthRestAPIs {
 
         try {
             user.get().setName(userForm.getName());
-
+            user.get().setAvatar(userForm.getAvatar());
             userService.save(user.get());
 
             return new ResponseEntity<>(new ResponseMessage("Update successful"), HttpStatus.OK);
