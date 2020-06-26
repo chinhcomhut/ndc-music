@@ -16,7 +16,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(exposedHeaders = "*", origins = "*", maxAge = 3600, allowedHeaders = "*")
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/auth")
 public class SingerRestAPI {
