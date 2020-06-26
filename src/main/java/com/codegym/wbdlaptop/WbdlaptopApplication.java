@@ -13,13 +13,13 @@ public class WbdlaptopApplication {
     public static void main(String[] args) {
         SpringApplication.run(WbdlaptopApplication.class, args);
     }
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurerAdapter() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/api/auth/**").allowedOrigins("http://localhost:8080");
-            }
-        };
-    }
+//    @Bean
+//    public WebMvcConfigurer corsConfigurer() {
+//        return new WebMvcConfigurerAdapter() {
+//            @Override
+//            public void addCorsMappings(CorsRegistry registry) {
+//                registry.addMapping("/api/auth/**").allowedOrigins("http://localhost:8080");
+//            }
+//        };
+//    }
 }
