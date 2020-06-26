@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table()
+@Table(name = "singer")
 public class Singer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +19,10 @@ public class Singer {
     private String information;
 
 
-    @OneToMany(targetEntity = Song.class, mappedBy = "singer", cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "singer_song",
+            joinColumns = @JoinColumn(name = "singer_id"),
+            inverseJoinColumns = @JoinColumn(name = "song_id"))
     private List<Song> songs;
 
     public Singer() {

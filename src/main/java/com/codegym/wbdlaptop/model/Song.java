@@ -32,8 +32,8 @@ public class Song {
     private int likeSong;
     private int listenSong;
 
-    @ManyToOne
-    private Singer singer;
+    @ManyToMany(mappedBy = "singer")
+    private List<Singer> singers;
 
     @ManyToOne
     private User user;
@@ -45,7 +45,7 @@ public class Song {
     public Song() {
     }
 
-    public Song(String avatarUrl, String nameSong, String mp3Url, String describes, String category, String lyrics, int likeSong, int listenSong, Singer singer, User user, List<Comment> comments) {
+    public Song(String avatarUrl, String nameSong, String mp3Url, String describes, String category, String lyrics, int likeSong, int listenSong, List<Singer> singers, User user, List<Comment> comments) {
         this.avatarUrl = avatarUrl;
         this.nameSong = nameSong;
         this.mp3Url = mp3Url;
@@ -54,7 +54,7 @@ public class Song {
         this.lyrics = lyrics;
         this.likeSong = likeSong;
         this.listenSong = listenSong;
-        this.singer = singer;
+        this.singers = singers;
         this.user = user;
         this.comments = comments;
     }
@@ -131,12 +131,12 @@ public class Song {
         this.listenSong = listenSong;
     }
 
-    public Singer getSinger() {
-        return singer;
+    public List<Singer> getSinger() {
+        return singers;
     }
 
-    public void setSinger(Singer singer) {
-        this.singer = singer;
+    public void setSinger(List<Singer> singers) {
+        this.singers = singers;
     }
 
     public User getUser() {
