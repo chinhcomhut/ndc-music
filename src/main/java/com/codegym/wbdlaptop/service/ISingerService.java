@@ -14,6 +14,5 @@ public interface ISingerService {
 
     void delete(Long id);
 
-
     Iterable<Singer> findSingersByNameSingerContaining(String singer_name);
 }
