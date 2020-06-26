@@ -3,7 +3,9 @@ package com.codegym.wbdlaptop.model;
 
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "singer")
@@ -23,12 +25,12 @@ public class Singer {
     @JoinTable(name = "singer_song",
             joinColumns = @JoinColumn(name = "singer_id"),
             inverseJoinColumns = @JoinColumn(name = "song_id"))
-    private List<Song> songs;
+    private Set<Song> songs = new HashSet<>();
 
     public Singer() {
     }
 
-    public Singer(String nameSinger, String avatarSinger, String information, List<Song> songs) {
+    public Singer(String nameSinger, String avatarSinger, String information, Set<Song> songs) {
         this.nameSinger = nameSinger;
         this.avatarSinger = avatarSinger;
         this.information = information;
@@ -67,11 +69,11 @@ public class Singer {
         this.information = information;
     }
 
-    public List<Song> getSongs() {
+    public Set<Song> getSongs() {
         return songs;
     }
 
-    public void setSongs(List<Song> songs) {
+    public void setSongs(Set<Song> songs) {
         this.songs = songs;
     }
 }

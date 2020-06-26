@@ -3,7 +3,9 @@ package com.codegym.wbdlaptop.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "song")
@@ -33,7 +35,7 @@ public class Song {
     private int listenSong;
 
     @ManyToMany(mappedBy = "singer")
-    private List<Singer> singers;
+    private Set<Singer> singers;
 
     @ManyToOne
     private User user;
@@ -45,7 +47,7 @@ public class Song {
     public Song() {
     }
 
-    public Song(String avatarUrl, String nameSong, String mp3Url, String describes, String category, String lyrics, int likeSong, int listenSong, List<Singer> singers, User user, List<Comment> comments) {
+    public Song(String avatarUrl, String nameSong, String mp3Url, String describes, String category, String lyrics, int likeSong, int listenSong, Set<Singer> singers, User user, List<Comment> comments) {
         this.avatarUrl = avatarUrl;
         this.nameSong = nameSong;
         this.mp3Url = mp3Url;
@@ -131,11 +133,11 @@ public class Song {
         this.listenSong = listenSong;
     }
 
-    public List<Singer> getSinger() {
+    public Set<Singer> getSinger() {
         return singers;
     }
 
-    public void setSinger(List<Singer> singers) {
+    public void setSinger(Set<Singer> singers) {
         this.singers = singers;
     }
 
