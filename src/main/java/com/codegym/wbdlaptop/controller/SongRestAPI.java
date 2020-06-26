@@ -101,9 +101,9 @@ public class SongRestAPI {
     @DeleteMapping("/song/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> deleteSong(@PathVariable Long id) {
-        Optional<Song> product = songService.findById(id);
+        Optional<Song> song = songService.findById(id);
 
-        if (!product.isPresent()) {
+        if (!song.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
